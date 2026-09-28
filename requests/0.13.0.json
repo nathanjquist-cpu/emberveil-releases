@@ -1,0 +1,31 @@
+{
+  "version": "0.13.0",
+  "title": "Emberveil 0.13.0 \u2014 Illustrated Frostmere",
+  "zip": {
+    "name": "Emberveil-Windows-Prototype-0.13.0.zip",
+    "size": 159978579,
+    "sha256": "fa9694ff0409659488c640dacefbba75ffb2dd82b3b72cfe355cbfe20a40d713"
+  },
+  "manifest": {
+    "schema": 1,
+    "app": "emberveil",
+    "platform": "windows-x86_64",
+    "version": "0.13.0",
+    "minimum_launcher": "1.0.0",
+    "save_version": 13,
+    "notes": "Illustrated Frostmere study: Base, High and Extreme; compare at actual 1920 x 1080 / Forward+. Staffs equip in either hand with empty, spell or ward off hand; fitted skinned bracers and continuous lateral sword cuts. Version 13 preserves staff side and existing journeys with backups. Adventure art remains unchanged pending the comparison.",
+    "files": {
+      "Emberveil.exe": {
+        "url": "https://github.com/nathanjquist-cpu/emberveil-releases/releases/download/v0.13.0/Emberveil.exe",
+        "size": 96343040,
+        "sha256": "ceddf679ab34a87ee221a50b2c6cd8e0acdb3a9fab4bd9c5190556a1e57a2aa7"
+      },
+      "Emberveil.pck": {
+        "url": "https://github.com/nathanjquist-cpu/emberveil-releases/releases/download/v0.13.0/Emberveil.pck",
+        "size": 129122836,
+        "sha256": "bf88ebde3c8c6ee22493dec0dd5813b26fb60a2d896f8df5e025be3f6d9c706c"
+      }
+    }
+  },
+  "release_notes": "# 0.13.0 \u2014 Illustrated Frostmere and fitted equipment\n\n- New isolated illustrated-fantasy study with Base, High and Extreme, plus a fixed comparison route and real-resolution reports.\n- Painted surfaces, smooth stylized traveler, layered trees, moving meadow, patterned stone/wood, warm lodge and fine decoration. Quality tiers increase detail and sampling.\n- Staffs work in either hand; the free hand can be relaxed, hold a spell or maintain a ward. Physical hand inputs, inventory slots, Grimoire labels and saved loadouts agree.\n- Skinned bracer shells replace rigid tubes; both bodies use their own fitted armor geometry.\n- Shoulder-led lateral sword arcs preserve edge-first contact and continuous recovery. Forward and two-handed cuts retain their established behavior.\n- Save version 13 retains staff side, migrates older journeys and preserves a versioned backup.\n- Corrected benchmark warm-up accounting so even a very slow validation run records a full measured minute.\n\nPublication: standalone candidate. The existing launcher feed remains 0.12.1 pending restored release-upload authentication. No new RTX performance claim is made. See VALIDATION.md and ILLUSTRATED-STUDY.md.\n"
+}
