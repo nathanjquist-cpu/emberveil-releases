@@ -1,3 +1,15 @@
+# 0.14.1 publication verified
+
+Private source **dc5cc0e8fe0adc16b6cbe16be4477b6951b7becc**, public request **6ea63b69afce8d28bb5abfb60c39d86e307ae73f**, hosted run **36511860884**, job **109225535331**. All seven exported-content gates passed. All five server asset digests and the live launcher feed were verified before stable/latest publication.
+
+The published PCK is byte-identical to the local exported package used for the 68-check stealth/concealment and 87-check signature-perk regressions. The 51-check combat workload suite passed locally and against the hosted export. Native guard/caster wind-up and release captures show the old chest marker absent, with sword motion and the real fire projectile retained. These captures use Compatibility software rendering and do not measure hardware FPS. No player hand meshes or animation curves changed.
+
+**Does this make sense?** The confusing ball was an intentional legacy attack-warning sphere in the shared enemy script, not a missing-texture or driver error. Its mesh/material and every visibility reference are removed from adventure and study. Combat timing, projectiles and save format 13 remain intact. Recovery branch checkpoint/before-0.14.1-orb-cleanup retains the prior source. The 0.14.0 user hardware results support the working High target and are stored separately; no performance improvement is claimed for the patch.
+
+This patch uses the unchanged launcher and publishing pipeline. The actual Windows updater already passed 19 live checks for 0.14.0; that full installation test was not repeated for this small game-only patch. The hosted publisher fetched and verified the new live manifest and asset digests. The update is available through the existing launcher without manual ZIP handling.
+
+---
+
 # 0.14.0 publication verified
 
 Hosted run **36509720705**, job **109218955318**, built private source **a3fee5598715ab0d161c1321d3f05e8368b559ba** after public request **a29f76b0e6cf1ea0312da1d76563727ed389f16c**. All seven exported gates passed. All five public asset digests were verified before promotion to stable/latest. The published PCK SHA-256 is `c9c52e6ba398ce53441be24f2f830b582c1082ae6edb21d7ee1f9092d4f3270a`, byte-identical to the locally tested exported package.
