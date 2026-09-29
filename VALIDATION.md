@@ -1,19 +1,25 @@
-# Publishing setup validation — 28 September 2026
+# Automatic source builds — 0.13.0
 
-Workflow commit: `00d61f3d126f1e20ddc86d8d85a529edace2988e`.
-Recovery branch: `checkpoint-before-actions-20260928` preserves the original downloads repository.
+## Intended result
 
-- Ten focused local tests passed, including interrupted uploads staying unpublished, wrong hashes, source/path rejection, wrong launcher URLs and downgrade prevention.
-- The actual 0.13.0 Windows ZIP was opened and verified against the committed request. Its EXE and PCK match the tested manifest byte for byte. The five derived release assets were prepared successfully. The credits ZIP is deterministic and retains every bundled license.
-- Hosted run [36497238311](https://github.com/nathanjquist-cpu/emberveil-releases/actions/runs/36497238311) passed the same tests and inspected the current public launcher manifest against GitHub's EXE/PCK asset digests using the built-in job token.
-- The publishing job was correctly skipped on this setup push. No new stable release was published. The current feed remains v0.12.1.
+Nathan opens the existing launcher, installs the offered update and plays. Building and publishing must require no player ZIP download, ZIP upload or repeated GitHub sign-in.
+
+## Verified before the first hosted release
+
+- Persistent GitHub CLI sign-in is stored in the Windows credential store.
+- The source repository is private; public downloads remain in this repository.
+- A read-only source deploy key is configured. Publication uses the job's own GITHUB_TOKEN; no personal token is stored in workflow secrets.
+- The private import reconstructed the exact reviewed source and verified all 610 file hashes before committing it to main. The source recovery preflight and full import both passed on GitHub.
+- Delivery documentation was updated after import; runtime code and art remained unchanged. The reviewed source digest was refreshed to include those documentation changes.
+- Local fresh export and five exported-content suites passed. Progression checked 203 assertions, sword checks covered 602 cases, and two-handed checks covered 6,024 cases. Character and adventure save-safety checks passed.
+- The existing publisher's ten focused regression tests passed, covering corrupted/mismatched assets, unsafe ZIP members, launcher URLs, version ordering, server digests and interrupted publication.
 
 ## Does this make sense?
 
-The intended result is automatic authenticated publication after a tested ZIP reaches GitHub. There are no private source files or reusable credentials in this repository. Failed verification or an interrupted upload cannot change the launcher feed; uploads first go into a separate stable draft. Existing stable releases are retained.
+The public request pins an immutable private revision. A changed source file fails the digest gate before publication. Source access is read-only. All exported-content gates must pass, then all five uploaded assets must match their recorded hashes before the draft can become latest. The launcher URL and save locations remain the same. Historical releases provide recovery points.
 
-## Pending first live publication
+Headless checks establish exported behavior, not graphical quality or Windows GPU performance. The original 0.13.0 visual review remains with the private source, and the new Base / High / Extreme comparison still needs Nathan's hardware results.
 
-Upload the approved `Emberveil-Windows-Prototype-0.13.0.zip` to a published prerelease tagged `staging-v0.13.0`, targeted at main. That event runs the publishing job. Binary transfer cannot currently be performed by the connected GitHub app; neither the build workspace nor the connected Windows PC had an installed authenticated GitHub CLI. A browser upload or a persistent local CLI sign-in is still required for that handoff.
+## Pending at workflow installation
 
-Actual release-write permission, the first automatic upload/promotion, and a live 0.12.1-to-0.13.0 launcher download/activation remain unverified until that upload happens. This setup is not a claim of a completed game release or a source-to-release build pipeline.
+The first hosted build, public 0.13.0 publication and live launcher activation test are pending. They will be recorded here only after completion.

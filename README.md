@@ -2,27 +2,31 @@
 
 Public Windows downloads and the update feed for Emberveil, a first-person fantasy RPG prototype.
 
-The game launcher reads `releases/latest/download/release.json`. Stable releases contain the game EXE, PCK, standalone ZIP, credits ZIP and that manifest. The game source and private recovery history are not stored here.
+## For players
 
-## Publishing a tested build
+Open the existing Emberveil launcher, check for updates, install the offered version and select Play. Players do not upload game ZIPs, run publishing commands or sign in to GitHub. The launcher continues to use `releases/latest/download/release.json` in this repository.
 
-1. Commit `requests/VERSION.json` with the tested ZIP size/SHA-256, exact game hashes, launcher manifest and release notes. This does not publish an update. The connected GitHub app can submit this small text file.
-2. Create a release with tag **`staging-vVERSION`**, target **main**, attach the approved **`Emberveil-Windows-Prototype-VERSION.zip`**, check **Set as a pre-release**, and publish the prerelease. Wait for the ZIP upload to finish first. Do not mark it as Latest.
-3. The **Publish tested Emberveil build** workflow starts automatically. It verifies the approved ZIP and inner game hashes, prepares the five launcher assets, uploads to a separate stable draft, checks GitHub's asset digests, and only then publishes **`vVERSION`** as Latest.
-4. Confirm the Actions run succeeds, then use the launcher to Check for updates. The workflow validates the public feed; a real launcher download/activation check is a separate release gate.
+Stable releases contain the game EXE, PCK, optional standalone ZIP, credits ZIP and update manifest. Game source and recovery history stay private.
 
-For the current build, use `staging-v0.13.0` and `Emberveil-Windows-Prototype-0.13.0.zip`.
+## Automatic builds and publication
 
-You can also select **Actions → Publish tested Emberveil build → Run workflow**, enter the version, and choose **verify** or **publish**. Verify reads the staging ZIP without changing releases. Rerun publish to resume an interrupted draft. Published versions are never overwritten or silently downgraded. Staging prereleases remain available for recovery and are never selected by the normal launcher feed.
+1. The developer commits reviewed changes to the private `nathanjquist-cpu/emberveil-source` repository and records the exact reviewed source digest and version in `ci/release.json`.
+2. The developer updates this repository's `build-request.json` with that immutable private commit SHA and version.
+3. **Build private source and update launcher** checks out that revision, downloads the checksum-pinned Godot 4.5.2 toolchain, exports the Windows game and tests its exported content.
+4. After all gates pass, the workflow uploads the five download assets to a draft, verifies their server SHA-256 digests and promotes the release to Latest. The existing launcher then offers it normally.
 
-## Authentication and the initial handoff
+The workflow can also be rerun from Actions. Source pinning, version checks and upload verification prevent an incomplete build from replacing the working release. Published mismatched versions and downgrades are rejected. Older releases remain available for recovery.
 
-Publishing runs on GitHub using the job's built-in `GITHUB_TOKEN` with repository Contents write permission. No personal token is saved in code, game files, or chat. You do not sign in to GitHub CLI for the workflow itself.
+The former player-side staging ZIP handoff has been replaced by this source-build workflow. Historical staging requests and publisher tests remain as development records; they are not required to update or play.
 
-The tested ZIP still has to reach GitHub. Upload it in the GitHub release page while signed in, or use a locally authenticated GitHub CLI. A sign-in on your own persistent computer can be reused for future file transfers; a sign-in inside a disposable build workspace may be lost. This workflow does not grant the ChatGPT connector a binary-upload capability and does not compile the private game source.
+## Authentication
 
-## Validation
+Publication uses GitHub Actions' built-in `GITHUB_TOKEN`. Private-source checkout uses a read-only deploy key restricted to the source repository, stored in `EMBERVEIL_SOURCE_DEPLOY_KEY`. Credentials are not included in game files, code or download manifests. There is no routine login step for each build, and Nathan's PC does not need to stay online while GitHub builds or publishes.
 
-`python3 -m unittest discover -s tests -v` checks exact runtime bytes, changed downloads, unsafe/source ZIP members, wrong launcher URLs, version downgrades, deterministic credits, server-digest mismatches and interrupted uploads that must stay unpublished. Each workflow run also checks the current public manifest against GitHub's game-asset digests.
+The source key and account access can still be revoked. The workflow emits build summaries and does not publish private source logs or source artifacts.
 
-**Does this make sense?** An incomplete staging upload cannot replace a working launcher release. The requested version and exact tested bytes must agree before publication. The current launcher URL, existing stable downloads and player saves remain intact. No visual game assets or runtime code are changed by this publishing setup.
+## Verification
+
+Exported-content gates cover character and adventure saves, progression, sword cuts and two-handed animation. Every source file contributes to the approved digest; all public download assets must match their build evidence and server digests. These checks do not replace visual review or a hardware performance benchmark.
+
+See `VALIDATION.md` for the current hosted-run and live launcher verification status.

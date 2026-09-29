@@ -1,0 +1,72 @@
+name: Build private source and update launcher
+
+on:
+  push:
+    branches: [main]
+    paths: ['build-request.json']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: emberveil-releases
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.repository == 'nathanjquist-cpu/emberveil-releases' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - name: Read release request
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Validate pinned source revision
+        id: request
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          from pathlib import Path
+          r = json.loads(Path('build-request.json').read_text())
+          assert r['source_repository'] == 'nathanjquist-cpu/emberveil-source'
+          assert re.fullmatch('[0-9a-f]{40}', r['source_commit'])
+          assert re.fullmatch(r'\d+\.\d+\.\d+', r['version'])
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write('commit=' + r['source_commit'] + '\n')
+              f.write('version=' + r['version'] + '\n')
+          PY
+      - name: Fetch private source with read-only repository key
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: nathanjquist-cpu/emberveil-source
+          ref: ${{ steps.request.outputs.commit }}
+          path: source
+          ssh-key: ${{ secrets.EMBERVEIL_SOURCE_DEPLOY_KEY }}
+          persist-credentials: false
+      - name: Verify requested version
+        env:
+          REQUEST_VERSION: ${{ steps.request.outputs.version }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          c = json.loads(Path('source/ci/release.json').read_text())
+          assert c['version'] == os.environ['REQUEST_VERSION'] and c['publish'] is True
+          PY
+      - name: Build and test the exported game
+        env:
+          EMBERVEIL_SOURCE_COMMIT: ${{ steps.request.outputs.commit }}
+        run: python3 source/ci/build.py
+      - name: Publish verified downloads
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EMBERVEIL_SOURCE_COMMIT: ${{ steps.request.outputs.commit }}
+        run: python3 source/ci/publish.py
+      - name: Record result
+        run: |
+          echo 'The game was built from the pinned private source revision, passed exported-content gates, and was published to the existing launcher feed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No player-side ZIP download or upload is required.' >> "$GITHUB_STEP_SUMMARY"
