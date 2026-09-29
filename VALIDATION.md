@@ -1,3 +1,15 @@
+# 0.14.0 publication verified
+
+Hosted run **36509720705**, job **109218955318**, built private source **a3fee5598715ab0d161c1321d3f05e8368b559ba** after public request **a29f76b0e6cf1ea0312da1d76563727ed389f16c**. All seven exported gates passed. All five public asset digests were verified before promotion to stable/latest. The published PCK SHA-256 is `c9c52e6ba398ce53441be24f2f830b582c1082ae6edb21d7ee1f9092d4f3270a`, byte-identical to the locally tested exported package.
+
+The actual Windows launcher 1.0.1 passed **19 live checks**, upgrading a disposable installation from 0.13.0 to 0.14.0. It downloaded **129,131,540 bytes**, reused **96,484,352 verified identical bytes**, checked both installed game hashes, retained both prior files, enabled Play, and correctly reported the second feed check as up to date. The real launcher state remained byte-identical and no game was launched. This verifies the updater, not Windows game graphics or FPS.
+
+The first Windows harness copy corrupted the curly apostrophe in the expected up-to-date text through PowerShell's default text decoding. Download, activation, hashes and rollback retention passed, but the text assertion failed, so that run was rejected. Writing the original UTF-8 script directly and rerunning produced the clean 19-check pass; no launcher or game code was changed to satisfy the assertion.
+
+**Does this make sense?** The user receives the update through the established launcher, without handling a ZIP or reauthorizing GitHub. Recovery branches preserve both the pre-change source and exact published revision. High is provisional; the new 3/6/9-actor benchmark is ready, but RTX 2070 SUPER Forward+ combat performance still requires the user's run. Held equipment and spell art remain the next pass after that measurement.
+
+---
+
 # Automatic source builds — 0.13.0
 
 ## Intended result

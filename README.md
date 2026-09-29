@@ -8,6 +8,10 @@ Open the existing Emberveil launcher, check for updates, install the offered ver
 
 Stable releases contain the game EXE, PCK, optional standalone ZIP, credits ZIP and update manifest. Game source and recovery history stay private.
 
+## Current graphics check — 0.14.0
+
+In Graphics study select **High**, **Forward+ (restart)** and **1920 × 1080**, then **Compare combat · 3 / 6 / 9 actors**. Keep the game in the foreground for three minutes fifteen seconds, then Copy comparison results. The isolated scene measures active enemy AI, collisions, blocking and projectiles. It preserves journey saves. High is provisional until the combat hardware results are reviewed; richer held equipment and spell art follow that check.
+
 ## Automatic builds and publication
 
 1. The developer commits reviewed changes to the private `nathanjquist-cpu/emberveil-source` repository and records the exact reviewed source digest and version in `ci/release.json`.
