@@ -20,6 +20,12 @@ The public request pins an immutable private revision. A changed source file fai
 
 Headless checks establish exported behavior, not graphical quality or Windows GPU performance. The original 0.13.0 visual review remains with the private source, and the new Base / High / Extreme comparison still needs Nathan's hardware results.
 
-## Pending at workflow installation
+## Completed hosted release and live Windows check
 
-The first hosted build, public 0.13.0 publication and live launcher activation test are pending. They will be recorded here only after completion.
+[Hosted build 36503990253](https://github.com/nathanjquist-cpu/emberveil-releases/actions/runs/36503990253) completed successfully. It built private source commit `be9bfffcf2cb2606decfd1644668c7f9c8323d2a` with reviewed source digest `a58279d95dd50f8d5b09ab1fa12e0a0e2e892d64f011075bdfee8fd6ff4cd505`. Fresh import/export and all five exported-content suites passed. All five server asset digests matched before [v0.13.0](https://github.com/nathanjquist-cpu/emberveil-releases/releases/tag/v0.13.0) became the stable latest release. The live manifest matched both game asset sizes and hashes.
+
+The unchanged Windows launcher 1.0.1 then passed 19 checks in a disposable installation. It installed the verified 0.12.1 fixture, detected 0.13.0 through the production HTTPS feed, downloaded and SHA-256-verified 225,607,188 bytes, activated the new version, retained both previous files, and reported up to date with Play enabled. The real launcher installation's state file remained unchanged; no player saves were accessed or modified by the test.
+
+This is an actual Windows launcher execution and update check. The test did not launch the Windows game or measure GPU performance. There is no new claim about frame rate or graphics quality.
+
+**Final sense check:** the requested player flow now works without manually moving an update ZIP. Source remains private, builds run on GitHub, the existing launcher URL still works, and earlier releases remain available for recovery. The player needs no new launcher or publishing login.
