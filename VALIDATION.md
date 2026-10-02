@@ -1,3 +1,19 @@
+# 0.32.0 published and verified — 2 October 2026
+
+The approved anatomical torso and grouped character editor are live as stable
+v0.32.0. The existing launcher feed points to the complete Windows update.
+All 33 exported-content release suites passed in run 37076500522, including save
+safety and the new character-editor selection/rotation checks. The publisher
+verified all five uploaded file digests and the live launcher manifest.
+
+The 182,184,272-byte game pack matches the reviewed export, SHA-256
+`a90baaf9527b7e7ac50e05cc8ddf0221b674c46a8c0b607521c5cc0b7bad27b3`.
+Existing supported saves remain on format 16. No intermediate game versions are
+needed; 0.31.0 remains available for rollback. Native visual review at 1080p and
+720p passed before release. This is not a new Windows hardware benchmark.
+
+---
+
 # 0.14.1 publication verified
 
 Private source **dc5cc0e8fe0adc16b6cbe16be4477b6951b7becc**, public request **6ea63b69afce8d28bb5abfb60c39d86e307ae73f**, hosted run **36511860884**, job **109225535331**. All seven exported-content gates passed. All five server asset digests and the live launcher feed were verified before stable/latest publication.

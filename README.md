@@ -8,9 +8,11 @@ Open the existing Emberveil launcher, check for updates, install the offered ver
 
 Stable releases contain the game EXE, PCK, optional standalone ZIP, credits ZIP and update manifest. Game source and recovery history stay private.
 
-## Current patch — 0.14.1
+## Current release — 0.32.0
 
-The pink/purple ball at enemies' chests was a prototype attack-warning marker. It is removed from both the adventure and Graphics study. Actual attack animations, timing and projectiles remain. Use the launcher to update; a full graphics comparison rerun is not needed for this cleanup.
+The character creator has eight body-region groups, contextual sliders and a reset for each group. Left-click the previewed body part to select its controls; right-click and drag to turn the character through a full 360 degrees. Torso clothing and chest armor now follow the shoulders, ribcage and waist. Hair, clothing and colors have their own panels.
+
+Update through the existing launcher. The download includes the complete game and preserves supported existing saves (format 16); intermediate versions are not required.
 
 ## Graphics baseline — 0.14.0
 
